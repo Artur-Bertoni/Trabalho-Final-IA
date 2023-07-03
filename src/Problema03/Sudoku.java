@@ -98,10 +98,12 @@ public class Sudoku {
 
         public void play() {
             generateBoard();
-            boolean GotHint = false;
+            boolean GotHint;
 
             while (!isGameComplete()) {
                 printBoard();
+
+                GotHint = false;
 
                 System.out.print("Digite a linha (0-8), -1 para sair ou -2 para obter uma dica: ");
                 int row = scanner.nextInt();
@@ -115,7 +117,7 @@ public class Sudoku {
                     GotHint = true;
                 }
 
-                if (GotHint) {
+                if (!GotHint) {
                     System.out.print("Digite a coluna (0-8) ou -1 para sair: ");
                     int col = scanner.nextInt();
                     if (col == -1) {
@@ -128,8 +130,6 @@ public class Sudoku {
                     if (!isValidMove(row, col, num)) {
                         System.out.println("Movimento inválido. Tente novamente.");
                     }
-
-                    GotHint = false;
                 }
             }
 

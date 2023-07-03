@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
 
+/**
+ * @author Artur Bertoni
+ */
 class GraphColoring {
 
     private static int VERTEX_NUMBER;

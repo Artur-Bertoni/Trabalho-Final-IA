@@ -1,5 +1,8 @@
 package Problema01;
 
+/**
+ * @author Artur Bertoni
+ */
 public class SendMoreMoney {
 
     public static void main(String[] args) {

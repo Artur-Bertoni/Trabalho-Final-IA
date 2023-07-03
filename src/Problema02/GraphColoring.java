@@ -1,5 +1,12 @@
 package Problema02;
 
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
 class GraphColoring {
@@ -10,6 +17,7 @@ class GraphColoring {
     private static List<Character> VERTEX_NAME_LIST;
     private static GraphColoring GRAPH;
     private final LinkedList<Integer>[] CONNECTION_LIST;
+    private int[] result;
 
     public static void main(String[] args) {
 
@@ -31,6 +39,9 @@ class GraphColoring {
                     System.out.println("\nColoração do Grafo:");
                     GRAPH.greedyColoring();
 
+                    System.out.println("\nGrafo:");
+                    GRAPH.printGraph();
+
                     break LOOP;
                 }
                 case 2 -> {
@@ -38,6 +49,9 @@ class GraphColoring {
 
                     System.out.println("\nColoração do Grafo:");
                     GRAPH.greedyColoring();
+
+                    System.out.println("\nGrafo:");
+                    GRAPH.printGraph();
 
                     break LOOP;
                 }
@@ -126,7 +140,7 @@ class GraphColoring {
     }
 
     void greedyColoring() {
-        int[] result = new int[VERTEX_NUMBER];
+        result = new int[VERTEX_NUMBER];
 
         Arrays.fill(result, -1);
         result[0] = 0;
@@ -154,6 +168,55 @@ class GraphColoring {
                 System.out.println("Vértice " + VERTEX_NAME_LIST.get(i) + " --->  " + COLOR_LIST.get(result[i]));
         } catch (IndexOutOfBoundsException e) {
             System.out.println("É impossível continuar colorindo este grafo de forma que as vértices que se conectam possuam entre si cores diferentes");
+        }
+    }
+
+    void printGraph() {
+        // Cria um objeto Graph
+        Graph<Character, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+
+        // Adiciona os vértices ao grafo
+        for (char vertex : VERTEX_NAME_LIST) {
+            graph.addVertex(vertex);
+        }
+
+        // Adiciona as conexões ao grafo
+        for (int i = 0; i < VERTEX_NUMBER; i++) {
+            char vertex = VERTEX_NAME_LIST.get(i);
+            LinkedList<Integer> connections = CONNECTION_LIST[i];
+            for (int connectedVertex : connections) {
+                char connectedVertexName = VERTEX_NAME_LIST.get(connectedVertex);
+                graph.addEdge(vertex, connectedVertexName);
+            }
+        }
+
+        // Exporta o grafo como arquivo DOT
+        exportGraphToDot(graph, "graph.dot");
+
+        System.out.println("Grafo exportado como graph.dot");
+    }
+
+    private void exportGraphToDot(Graph<Character, DefaultEdge> graph, String fileName) {
+        try (Writer writer = new FileWriter(fileName)) {
+            writer.write("graph G {\n");
+
+            // Escreve as definições de cores
+            for (int i = 0; i < VERTEX_NUMBER; i++) {
+                char vertex = VERTEX_NAME_LIST.get(i);
+                String color = COLOR_LIST.get(result[i]);
+                writer.write("    " + vertex + " [color=" + color + "];\n");
+            }
+
+            // Escreve as arestas
+            for (DefaultEdge edge : graph.edgeSet()) {
+                char source = graph.getEdgeSource(edge);
+                char target = graph.getEdgeTarget(edge);
+                writer.write("    " + source + " -- " + target + ";\n");
+            }
+
+            writer.write("}\n");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

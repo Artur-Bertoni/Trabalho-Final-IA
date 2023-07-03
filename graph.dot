@@ -1,0 +1,17 @@
+graph G {
+    A [color=Vermelho];
+    B [color=Azul];
+    C [color=Vermelho];
+    D [color=Azul];
+    E [color=Amarelo];
+    F [color=Vermelho];
+    G [color=Azul];
+    A -- B;
+    B -- C;
+    B -- E;
+    C -- D;
+    C -- E;
+    E -- F;
+    E -- G;
+    F -- G;
+}

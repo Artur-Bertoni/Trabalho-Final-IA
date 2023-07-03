@@ -175,15 +175,12 @@ class GraphColoring {
     }
 
     void printGraph() {
-        // Cria um objeto Graph
         Graph<Character, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
 
-        // Adiciona os vértices ao grafo
         for (char vertex : VERTEX_NAME_LIST) {
             graph.addVertex(vertex);
         }
 
-        // Adiciona as conexões ao grafo
         for (int i = 0; i < VERTEX_NUMBER; i++) {
             char vertex = VERTEX_NAME_LIST.get(i);
             LinkedList<Integer> connections = CONNECTION_LIST[i];
@@ -193,24 +190,21 @@ class GraphColoring {
             }
         }
 
-        // Exporta o grafo como arquivo DOT
-        exportGraphToDot(graph, "graph.dot");
+        exportGraphToDot(graph);
 
         System.out.println("Grafo exportado como graph.dot");
     }
 
-    private void exportGraphToDot(Graph<Character, DefaultEdge> graph, String fileName) {
-        try (Writer writer = new FileWriter(fileName)) {
+    private void exportGraphToDot(Graph<Character, DefaultEdge> graph) {
+        try (Writer writer = new FileWriter("graph.dot")) {
             writer.write("graph G {\n");
 
-            // Escreve as definições de cores
             for (int i = 0; i < VERTEX_NUMBER; i++) {
                 char vertex = VERTEX_NAME_LIST.get(i);
                 String color = COLOR_LIST.get(result[i]);
                 writer.write("    " + vertex + " [color=" + color + "];\n");
             }
 
-            // Escreve as arestas
             for (DefaultEdge edge : graph.edgeSet()) {
                 char source = graph.getEdgeSource(edge);
                 char target = graph.getEdgeTarget(edge);

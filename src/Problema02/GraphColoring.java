@@ -196,7 +196,7 @@ class GraphColoring {
     }
 
     private void exportGraphToDot(Graph<Character, DefaultEdge> graph) {
-        try (Writer writer = new FileWriter("graph.dot")) {
+        try (Writer writer = new FileWriter("src/Problema02/graph.dot")) {
             writer.write("graph G {\n");
 
             for (int i = 0; i < VERTEX_NUMBER; i++) {

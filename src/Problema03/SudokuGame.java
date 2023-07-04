@@ -28,11 +28,10 @@ public class SudokuGame {
     }
 
     public void generateBoard() {
-        // Preenche o tabuleiro com números aleatórios válidos
+        BOARD[RANDOM.nextInt(0, 9)][RANDOM.nextInt(0, 9)] = RANDOM.nextInt(0, 10);
         solveBoard();
 
-        // Remove células para criar um jogo incompleto
-        int cellsToRemove = 40; // Quantidade de células para remover (ajuste conforme desejado)
+        int cellsToRemove = 40;
         while (cellsToRemove > 0) {
             int row = RANDOM.nextInt(SIZE);
             int col = RANDOM.nextInt(SIZE);
@@ -74,14 +73,12 @@ public class SudokuGame {
     }
 
     private boolean isValidPlacement(int row, int col, int num) {
-        // Verifica se o número não existe na mesma linha ou coluna
         for (int i = 0; i < SIZE; i++) {
             if (BOARD[row][i] == num || BOARD[i][col] == num) {
                 return false;
             }
         }
 
-        // Verifica se o número não existe no mesmo bloco 3x3
         int startRow = row - row % 3;
         int startCol = col - col % 3;
         for (int i = startRow; i < startRow + 3; i++) {

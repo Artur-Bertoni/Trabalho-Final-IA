@@ -69,7 +69,7 @@ class GraphColoring {
 
     static void initializeDefault() {
         GRAPH = new GraphColoring(7, 3);
-        COLOR_LIST = new ArrayList<>(Arrays.asList("Vermelho", "Azul", "Amarelo"));
+        COLOR_LIST = new ArrayList<>(Arrays.asList("Red", "Blue", "Yellow"));
         VERTEX_NAME_LIST = new ArrayList<>(Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G'));
 
         GRAPH.addConnection('A', 'B');
@@ -100,7 +100,7 @@ class GraphColoring {
         System.out.print("\nCORES:\nInforme a quantidade de cores: ");
         COLOR_NUMBER = scanner.nextInt();
 
-        System.out.println("Informe a lista de cores:");
+        System.out.println("Informe a lista de cores (em inglês, ex: red):");
         for (int i = 0; i < COLOR_NUMBER; i++) {
             System.out.print((i + 1) + "ª cor: ");
             COLOR_LIST.add(scanner.next());

@@ -28,7 +28,18 @@ public class SudokuGame {
     }
 
     public void generateBoard() {
-        BOARD[RANDOM.nextInt(0, 9)][RANDOM.nextInt(0, 9)] = RANDOM.nextInt(0, 10);
+        for (int i = 0; i < 10; i++) {
+            while (true) {
+                int row = RANDOM.nextInt(0, 9);
+                int col = RANDOM.nextInt(0, 9);
+                int num = RANDOM.nextInt(0, 10);
+
+                if (BOARD[row][col] == EMPTY_CELL && isValidPlacement(row, col, num)) {
+                    BOARD[row][col] = num;
+                    break;
+                }
+            }
+        }
         solveBoard();
 
         int cellsToRemove = 40;
